@@ -1,0 +1,22 @@
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="RF Consulting, inicio">
+      <img class="brand-logo brand-logo-header" src="/assets/images/logo-rf-consulting-black.png" width="500" height="250" alt="" fetchpriority="high">
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" data-menu-toggle>
+      <span class="menu-toggle-label">Menú</span>
+      <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+
+    <nav class="main-navigation" id="main-navigation" aria-label="Navegación principal" data-navigation>
+      <ul>
+        <li><a href="/nosotros"{% if currentPath == "/nosotros" %} aria-current="page"{% endif %}>Nosotros</a></li>
+        <li><a href="/especialidades"{% if currentSection == "especialidades" %} aria-current="page"{% endif %}>Especialidades</a></li>
+        <li><a href="/servicios-web"{% if currentSection == "servicios-web" %} aria-current="page"{% endif %}>Servicios web</a></li>
+        <li><a href="/blog"{% if currentSection == "blog" %} aria-current="page"{% endif %}>Conocimiento</a></li>
+      </ul>
+      <a class="button button-small" href="/contacto"{% if currentSection == "contacto" %} aria-current="page"{% endif %}>Conversemos</a>
+    </nav>
+  </div>
+</header>

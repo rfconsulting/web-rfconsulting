@@ -1,0 +1,50 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="web-detail-hero section-dark">
+    <div class="container web-detail-grid">
+      <div>
+        <a class="back-link" href="/servicios-web"><span aria-hidden="true">←</span> Todos los servicios web</a>
+        <p class="eyebrow eyebrow-light"><span></span>{{ page.eyebrow }}</p>
+        <h1>{{ page.title }}</h1>
+      </div>
+      <div class="web-detail-summary"><span>{{ page.number }}</span><p>{{ page.summary }}</p><a class="button button-light" href="/contacto">{{ page.cta }}</a></div>
+    </div>
+  </section>
+
+  <section class="section web-problem" aria-labelledby="web-problem-title">
+    <div class="container problem-grid">
+      <div><p class="eyebrow"><span></span>Por qué importa</p><h2 id="web-problem-title">Una decisión pequeña puede afectar toda la presencia digital.</h2></div>
+      <div><p class="lead">{{ page.problem }}</p><div class="outcome-box"><span>Resultado buscado</span><strong>{{ page.outcome }}</strong></div></div>
+    </div>
+  </section>
+
+  <section class="section web-features" aria-labelledby="web-features-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow"><span></span>Qué incluye</p><h2 id="web-features-title">Acompañamiento con responsabilidades claras.</h2></div><p>La combinación final depende del diagnóstico, proveedor y condiciones aprobadas para cada empresa.</p></div>
+      <div class="web-feature-grid">{% for feature in page.features %}<article><span>0{{ loop.index }}</span><h3>{{ feature.title }}</h3><p>{{ feature.description }}</p></article>{% endfor %}</div>
+    </div>
+  </section>
+
+  <section class="section web-considerations" aria-labelledby="considerations-title">
+    <div class="container considerations-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>Criterios importantes</p><h2 id="considerations-title">Lo que no debe quedar implícito.</h2></div>
+      <ol>{% for item in page.considerations %}<li><span>0{{ loop.index }}</span><p>{{ item }}</p></li>{% endfor %}</ol>
+    </div>
+  </section>
+
+  <section class="section web-service-process" aria-labelledby="web-process-title">
+    <div class="container">
+      <div class="section-heading section-heading-compact"><div><p class="eyebrow"><span></span>Proceso</p><h2 id="web-process-title">De la necesidad a una operación documentada.</h2></div><p>Cada transición debe poder verificarse antes de avanzar.</p></div>
+      <ol>{% for step in page.steps %}<li><span>0{{ loop.index }}</span><strong>{{ step }}</strong></li>{% endfor %}</ol>
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="web-detail-contact-title">
+    <div class="container contact-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>{{ page.title }}</p><h2 id="web-detail-contact-title">Revisemos el punto de partida.</h2></div>
+      <div><p>Cuéntanos qué utilizas actualmente, quién lo administra y qué necesitas mejorar.</p><a class="button button-signal" href="/contacto">{{ page.cta }} <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+{% endblock %}
+

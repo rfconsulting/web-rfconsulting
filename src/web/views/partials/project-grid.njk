@@ -1,0 +1,21 @@
+<div class="project-grid">
+  {% for project in projects %}
+    <article class="project-card project-card-{{ project.tone }}">
+      <div class="project-preview" aria-hidden="true">
+        <div class="project-browser"><i></i><i></i><i></i><span>{{ project.domain }}</span></div>
+        <div class="project-canvas">
+          <span>{{ project.sector }}</span>
+          <strong>{{ project.name }}</strong>
+          <i></i><i></i>
+        </div>
+      </div>
+      <div class="project-content">
+        <p class="project-meta"><span>{{ project.number }}</span><span>{{ project.sector }}</span></p>
+        <h3>{{ project.name }}</h3>
+        <p>{{ project.description }}</p>
+        <a class="card-link" href="{{ project.url }}" target="_blank" rel="external noopener">Visitar sitio <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+

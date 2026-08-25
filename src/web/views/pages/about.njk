@@ -1,0 +1,110 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="about-hero section-dark">
+    <div class="container about-hero-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Nosotros</p>
+        <h1>No solo ofrecemos tecnología. Construimos soluciones reales.</h1>
+      </div>
+      <div class="about-hero-copy">
+        <p>Somos una empresa panameña especializada en soluciones tecnológicas empresariales. Ayudamos a las organizaciones a operar con mayor claridad, modernizar sus procesos y evolucionar sin perder la esencia de su negocio.</p>
+        <a class="text-link text-link-light" href="#identidad">Conocer nuestra forma de trabajar <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <div class="container about-manifesto" aria-hidden="true">
+      <span>Escuchar</span><i></i><span>Conectar</span><i></i><span>Resolver</span><i></i><span>Acompañar</span>
+    </div>
+  </section>
+
+  <section class="section about-identity" id="identidad" aria-labelledby="identity-title">
+    <div class="container about-identity-grid">
+      <div class="identity-statement">
+        <p class="eyebrow"><span></span>Quiénes somos</p>
+        <h2 id="identity-title">Un aliado tecnológico cerca de la operación.</h2>
+        <p class="lead">Entendemos que una herramienta aislada no transforma una empresa. El valor aparece cuando procesos, personas y sistemas trabajan en la misma dirección.</p>
+      </div>
+      <div class="capability-panel">
+        <p>Trabajamos en cinco frentes conectados:</p>
+        <ol>
+          {% for capability in page.capabilities %}
+            <li><span>0{{ loop.index }}</span><strong>{{ capability }}</strong></li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section values-section" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span></span>Nuestros valores</p>
+          <h2 id="values-title">Criterios que se ven en el trabajo.</h2>
+        </div>
+        <p>Los valores no son una lista decorativa: orientan cómo recomendamos, implementamos y respondemos.</p>
+      </div>
+      <div class="values-grid">
+        {% for value in page.values %}
+          <article class="value-card">
+            <span>{{ value.number }}</span>
+            <h3>{{ value.title }}</h3>
+            <p>{{ value.description }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-process" aria-labelledby="about-process-title">
+    <div class="container about-process-heading">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Acompañamiento estratégico</p>
+        <h2 id="about-process-title">Un método flexible, con resultados verificables.</h2>
+      </div>
+      <p>No empezamos por una marca o una herramienta. Empezamos por comprender qué debe funcionar mejor y cómo sabremos que lo logramos.</p>
+    </div>
+    <div class="container method-list">
+      {% for step in page.process %}
+        <article class="method-row">
+          <span class="method-number">{{ step.number }}</span>
+          <div><h3>{{ step.title }}</h3><p>{{ step.description }}</p></div>
+          <strong>{{ step.outcome }}</strong>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section difference-section" aria-labelledby="difference-title">
+    <div class="container difference-grid">
+      <div class="difference-visual" aria-hidden="true">
+        <div class="difference-core"><span>RF</span><strong>Consulting</strong></div>
+        <span class="difference-label difference-label-one">Negocio</span>
+        <span class="difference-label difference-label-two">Personas</span>
+        <span class="difference-label difference-label-three">Sistemas</span>
+      </div>
+      <div>
+        <p class="eyebrow"><span></span>Por qué RF Consulting</p>
+        <h2 id="difference-title">Soluciones integradas, no productos sueltos.</h2>
+        <p class="lead">Asumimos la tecnología como parte de la empresa: debe responder a su contexto, sus restricciones y su capacidad de evolución.</p>
+        <ul class="difference-list">
+          {% for differentiator in page.differentiators %}<li>{{ differentiator }}</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="about-contact-title">
+    <div class="container contact-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>El siguiente paso</p>
+        <h2 id="about-contact-title">Hablemos de lo que tu empresa necesita resolver.</h2>
+      </div>
+      <div>
+        <p>Una buena solución comienza con preguntas claras. Cuéntanos tu contexto y revisaremos juntos el punto de partida.</p>
+        <a class="button button-signal" href="/contacto">Solicitar un diagnóstico <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

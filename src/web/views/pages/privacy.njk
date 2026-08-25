@@ -1,0 +1,94 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="legal-hero section-dark">
+    <div class="container legal-hero-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Privacidad</p>
+        <h1>Tu información merece un tratamiento claro.</h1>
+      </div>
+      <div class="legal-hero-summary">
+        <p>Esta política explica qué datos personales puede tratar RF Consulting al operar rfcpty.com, para qué los utiliza y cómo puedes ejercer tus derechos.</p>
+        <p class="legal-date">Última actualización: <time datetime="2026-08-25">{{ page.updatedAt }}</time></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section legal-section">
+    <div class="container legal-layout">
+      <nav class="legal-index" aria-label="Contenido de la política">
+        <p>En esta política</p>
+        <ol>{% for section in page.sections %}<li><a href="#{{ section.id }}">{{ section.label }}</a></li>{% endfor %}</ol>
+      </nav>
+
+      <article class="legal-copy">
+        <p class="legal-intro">La política se limita al funcionamiento actual del sitio. No trasladamos cláusulas genéricas sobre comentarios, cuentas, publicidad o analítica cuando esas funciones no existen.</p>
+
+        <section id="responsable">
+          <p class="legal-number">01</p><h2>Responsable y alcance</h2>
+          <p><strong>RF Consulting</strong> es responsable del tratamiento descrito en esta página para el sitio <strong>rfcpty.com</strong>. Para consultas de privacidad, escribe a <a href="mailto:{{ page.privacyEmail }}?subject=Privacidad%20-%20solicitud">{{ page.privacyEmail }}</a> con el asunto “Privacidad”.</p>
+          <p>Esta política se preparó con referencia a la Ley 81 de 2019 de la República de Panamá y su reglamentación mediante el Decreto Ejecutivo 285 de 2021. No sustituye asesoría jurídica ni implica una certificación de cumplimiento.</p>
+        </section>
+
+        <section id="datos">
+          <p class="legal-number">02</p><h2>Datos que podemos tratar</h2>
+          <h3>Datos que proporcionas</h3>
+          <p>Al preparar una consulta puedes introducir nombre, empresa, correo electrónico, teléfono, servicio de interés y el mensaje. No incluyas contraseñas, códigos de verificación, datos bancarios ni información sensible.</p>
+          <div class="legal-callout"><strong>El formulario no crea una base de datos.</strong><p>El servidor valida temporalmente la información y genera enlaces para abrir el mensaje en WhatsApp o en tu aplicación de correo. RF Consulting no lo almacena ni lo envía automáticamente desde este sitio.</p></div>
+          <h3>Datos técnicos</h3>
+          <p>El servidor web y la infraestructura de alojamiento pueden registrar datos técnicos mínimos —como dirección IP, fecha y hora, ruta solicitada, código de respuesta y agente de usuario— para entregar el sitio, detectar fallos y protegerlo frente a abuso.</p>
+          <h3>Cookies y seguimiento</h3>
+          <p>La versión pública actual no utiliza cookies de analítica o publicidad, píxeles de seguimiento, cuentas de usuario, comentarios ni contenido multimedia incrustado de terceros. Si esto cambia, actualizaremos esta política y, cuando corresponda, solicitaremos consentimiento antes de activar esas tecnologías.</p>
+        </section>
+
+        <section id="finalidades">
+          <p class="legal-number">03</p><h2>Para qué usamos los datos</h2>
+          <ul>
+            <li>Preparar y responder consultas comerciales o solicitudes de soporte.</li>
+            <li>Evaluar necesidades, coordinar una conversación y, si se solicita, preparar una propuesta o relación contractual.</li>
+            <li>Operar, diagnosticar y proteger el sitio y sus servicios.</li>
+            <li>Cumplir obligaciones legales o atender reclamaciones cuando resulte necesario.</li>
+          </ul>
+          <p>El tratamiento se basa, según corresponda, en tu consentimiento informado, en las gestiones que solicitas antes o durante una relación contractual o en una obligación legal. Puedes retirar tu consentimiento sin afectar el tratamiento realizado previamente.</p>
+        </section>
+
+        <section id="conservacion">
+          <p class="legal-number">04</p><h2>Cuánto tiempo conservamos la información</h2>
+          <ul>
+            <li><strong>Formulario:</strong> no se conserva en una base de datos del sitio.</li>
+            <li><strong>Consultas enviadas por correo o WhatsApp:</strong> hasta 24 meses desde la última interacción, salvo que se conviertan en parte de una relación contractual, exista una obligación legal o solicites su eliminación cuando proceda.</li>
+            <li><strong>Registros técnicos:</strong> hasta 90 días, salvo que deban preservarse para investigar un incidente o atender una obligación legal.</li>
+            <li><strong>Registros de clientes y soporte:</strong> durante la relación y por el periodo exigido para obligaciones contractuales, contables, fiscales o legales.</li>
+          </ul>
+          <p>Al vencer el plazo aplicable, la información se elimina, anonimiza o bloquea según corresponda.</p>
+        </section>
+
+        <section id="terceros">
+          <p class="legal-number">05</p><h2>Proveedores, enlaces y transferencias</h2>
+          <p>Al elegir WhatsApp o correo, sales de rfcpty.com y la información pasa a ser tratada también por el proveedor que elijas, bajo sus propios términos y políticas. Los enlaces del portafolio y de las fuentes oficiales también conducen a sitios externos.</p>
+          <p>RF Consulting puede apoyarse en proveedores de alojamiento, correo, seguridad y soporte estrictamente necesarios para operar. Se limita el acceso a la finalidad contratada y se aplican medidas contractuales y de seguridad razonables. Algunos proveedores pueden tratar datos fuera de Panamá; cuando aplique, las transferencias se gestionarán conforme a la legislación panameña.</p>
+          <p>No vendemos datos personales ni los compartimos para publicidad conductual.</p>
+        </section>
+
+        <section id="derechos">
+          <p class="legal-number">06</p><h2>Tus derechos</h2>
+          <p>Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos (derechos ARCO), así como portabilidad cuando resulte aplicable. También puedes retirar el consentimiento y presentar una denuncia ante la Autoridad Nacional de Transparencia y Acceso a la Información (ANTAI).</p>
+          <p>Envía la solicitud a <a href="mailto:{{ page.privacyEmail }}?subject=Privacidad%20-%20derechos%20ARCO">{{ page.privacyEmail }}</a>. Describe el derecho que deseas ejercer y aporta únicamente la información necesaria para identificar la comunicación relacionada. Podemos solicitar una verificación proporcionada para evitar entregar datos a otra persona.</p>
+          <div class="legal-callout"><strong>Aunque no existan datos almacenados, responderemos.</strong><p>Confirmaremos la recepción y atenderemos la solicitud dentro de los plazos establecidos por la normativa aplicable.</p></div>
+        </section>
+
+        <section id="seguridad">
+          <p class="legal-number">07</p><h2>Seguridad, menores y cambios</h2>
+          <p>Aplicamos controles técnicos y organizativos proporcionales al servicio, incluida validación de entradas, cabeceras de seguridad y limitación de los datos solicitados. Ningún sistema es infalible; si detectas un posible incidente, comunícalo a {{ page.privacyEmail }}.</p>
+          <p>El sitio está dirigido a empresas y personas adultas. No recopilamos intencionalmente datos de menores de edad. Si consideras que un menor proporcionó información, solicita su eliminación.</p>
+          <p>Podemos actualizar esta política cuando cambie el sitio, un proveedor o la normativa. Publicaremos la versión vigente aquí e indicaremos su fecha de actualización.</p>
+        </section>
+
+        <section class="legal-sources" aria-labelledby="sources-title">
+          <p class="legal-number">Fuentes</p><h2 id="sources-title">Referencias oficiales</h2>
+          <ul>{% for source in page.officialSources %}<li><a href="{{ source.href }}" target="_blank" rel="external noopener">{{ source.label }} <span aria-hidden="true">↗</span></a></li>{% endfor %}</ul>
+        </section>
+      </article>
+    </div>
+  </section>
+{% endblock %}

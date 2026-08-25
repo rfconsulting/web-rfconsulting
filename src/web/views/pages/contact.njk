@@ -1,0 +1,65 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="contact-hero section-dark">
+    <div class="container contact-hero-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>Contacto</p><h1>Empecemos por comprender tu operación.</h1></div>
+      <p>Cuéntanos qué necesitas resolver. Antes de recomendar una herramienta o servicio, revisaremos el contexto y el resultado que buscas.</p>
+    </div>
+  </section>
+
+  <section class="section contact-section" aria-labelledby="contact-form-title">
+    <div class="container contact-page-grid">
+      <aside class="contact-channels">
+        <p class="eyebrow"><span></span>Canales directos</p>
+        <h2>Elige cómo continuar.</h2>
+        <div class="channel-list">
+          <a href="{{ page.whatsappBaseUrl }}" target="_blank" rel="external noopener"><span>WhatsApp</span><strong>{{ page.phoneDisplay }}</strong><i aria-hidden="true">↗</i></a>
+          <a href="mailto:{{ page.salesEmail }}"><span>Consultas comerciales</span><strong>{{ page.salesEmail }}</strong><i aria-hidden="true">→</i></a>
+          <a href="mailto:{{ page.supportEmail }}"><span>Soporte para clientes</span><strong>{{ page.supportEmail }}</strong><i aria-hidden="true">→</i></a>
+          <a href="tel:{{ page.phoneValue }}"><span>Teléfono</span><strong>{{ page.phoneDisplay }}</strong><i aria-hidden="true">→</i></a>
+        </div>
+        <div class="contact-expectation"><span>Qué puedes esperar</span><p>Revisaremos tu consulta para identificar el área adecuada y preparar una conversación inicial por el canal que elijas.</p></div>
+      </aside>
+
+      <div class="contact-form-panel">
+        <p class="eyebrow"><span></span>Prepara tu consulta</p>
+        <h2 id="contact-form-title">Danos el contexto esencial.</h2>
+        <p class="form-introduction">Este formulario no almacena ni envía datos automáticamente. Al validarlo podrás abrir tu consulta preparada en WhatsApp o en tu aplicación de correo.</p>
+
+        {% if isPrepared %}
+          <div class="prepared-contact" role="status" tabindex="-1" data-prepared-contact>
+            <span>Consulta preparada</span>
+            <h3>Elige el canal para enviarla.</h3>
+            <p>Revisa el mensaje en la aplicación elegida antes de enviarlo.</p>
+            <div class="button-group">
+              <a class="button button-signal" href="{{ whatsappUrl }}" target="_blank" rel="external noopener">Abrir WhatsApp <span aria-hidden="true">↗</span></a>
+              <a class="button" href="{{ emailUrl }}">Abrir correo <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if errors.form %}<p class="form-error-summary" role="alert">{{ errors.form }}</p>{% endif %}
+        {% if errors.name or errors.email or errors.phone or errors.service or errors.message or errors.consent %}<div class="form-error-summary" role="alert" tabindex="-1"><strong>Revisa la información marcada.</strong><p>No pudimos preparar la consulta todavía.</p></div>{% endif %}
+
+        <form class="contact-form" action="/contacto" method="post" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="name">Nombre y apellido <span aria-hidden="true">*</span></label><input id="name" name="name" type="text" autocomplete="name" maxlength="100" value="{{ values.name }}" aria-describedby="name-help{% if errors.name %} name-error{% endif %}"{% if errors.name %} aria-invalid="true"{% endif %} required><small id="name-help">Persona con quien conversaremos.</small>{% if errors.name %}<small class="field-error" id="name-error">{{ errors.name }}</small>{% endif %}</div>
+            <div class="field"><label for="company">Empresa <span>(opcional)</span></label><input id="company" name="company" type="text" autocomplete="organization" maxlength="120" value="{{ values.company }}"></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="email">Correo electrónico <span aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" value="{{ values.email }}"{% if errors.email %} aria-invalid="true" aria-describedby="email-error"{% endif %} required>{% if errors.email %}<small class="field-error" id="email-error">{{ errors.email }}</small>{% endif %}</div>
+            <div class="field"><label for="phone">Teléfono <span>(opcional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="24" value="{{ values.phone }}"{% if errors.phone %} aria-invalid="true" aria-describedby="phone-error"{% endif %}>{% if errors.phone %}<small class="field-error" id="phone-error">{{ errors.phone }}</small>{% endif %}</div>
+          </div>
+          <div class="field"><label for="service">Servicio relacionado <span aria-hidden="true">*</span></label><select id="service" name="service"{% if errors.service %} aria-invalid="true" aria-describedby="service-error"{% endif %} required>{% for service in page.services %}<option value="{{ service.value }}"{% if values.service == service.value %} selected{% endif %}>{{ service.label }}</option>{% endfor %}</select>{% if errors.service %}<small class="field-error" id="service-error">{{ errors.service }}</small>{% endif %}</div>
+          <div class="field"><label for="message">¿Qué necesitas resolver? <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="7" maxlength="2000" aria-describedby="message-help{% if errors.message %} message-error{% endif %}"{% if errors.message %} aria-invalid="true"{% endif %} required>{{ values.message }}</textarea><small id="message-help">Incluye el problema, personas afectadas y resultado esperado. No compartas contraseñas ni información sensible.</small>{% if errors.message %}<small class="field-error" id="message-error">{{ errors.message }}</small>{% endif %}</div>
+          <div class="honeypot" aria-hidden="true"><label for="website">Sitio web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" value=""></div>
+          <div class="checkbox-field"><input id="consent" name="consent" type="checkbox" value="yes"{% if values.consent %} checked{% endif %}{% if errors.consent %} aria-invalid="true" aria-describedby="consent-error"{% endif %} required><label for="consent">Acepto que RF Consulting utilice estos datos para responder mi consulta, según la <a href="/politica-de-privacidad">política de privacidad</a>. <span aria-hidden="true">*</span></label>{% if errors.consent %}<small class="field-error" id="consent-error">{{ errors.consent }}</small>{% endif %}</div>
+          <button class="button" type="submit">Preparar consulta <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-safety"><div class="container"><span>No envíes credenciales</span><p>RF Consulting nunca necesita que escribas contraseñas, códigos de verificación o datos bancarios en este formulario.</p></div></section>
+{% endblock %}

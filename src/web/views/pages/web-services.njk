@@ -1,0 +1,87 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="web-services-hero section-dark">
+    <div class="container web-services-hero-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Servicios web</p>
+        <h1>Una presencia digital con base empresarial.</h1>
+      </div>
+      <div>
+        <p>Dominio, correo, hosting y sitio web deben funcionar como una infraestructura coherente: bajo control de la empresa, documentada y preparada para evolucionar.</p>
+        <a class="button button-light" href="/contacto">Evaluar mi presencia digital</a>
+      </div>
+    </div>
+    <div class="container web-stack" aria-label="Capas de una presencia digital empresarial">
+      {% for service in page.items %}<span><i>{{ service.number }}</i>{{ service.title }}</span>{% endfor %}
+    </div>
+  </section>
+
+  <nav class="service-section-nav" aria-label="Secciones de servicios web">
+    <div class="container">
+      <a href="#servicios">Servicios <span aria-hidden="true">↓</span></a>
+      <a href="#proyectos">Proyectos desarrollados <span aria-hidden="true">↓</span></a>
+      <a href="#aplicaciones">Aplicaciones web <span aria-hidden="true">↓</span></a>
+    </div>
+  </nav>
+
+  <section class="section web-services-intro" id="servicios" aria-labelledby="services-web-title">
+    <div class="container split-heading">
+      <p class="eyebrow"><span></span>La base completa</p>
+      <div><h2 id="services-web-title">Cuatro servicios que conviene diseñar juntos.</h2><p class="lead">Una decisión sobre el dominio afecta al correo. El hosting condiciona la operación del sitio. La web necesita que todas esas piezas tengan propietarios, accesos y responsabilidades claras.</p></div>
+    </div>
+  </section>
+
+  <section class="web-service-catalog" aria-label="Catálogo de servicios web">
+    <div class="container">
+      {% for service in page.items %}
+        <article class="web-service-row">
+          <span class="web-service-number">{{ service.number }}</span>
+          <div><p>{{ service.eyebrow }}</p><h2><a href="/servicios-web/{{ service.slug }}">{{ service.title }}</a></h2></div>
+          <p>{{ service.summary }}</p>
+          <a href="/servicios-web/{{ service.slug }}" aria-label="Explorar {{ service.title }}">Explorar <span aria-hidden="true">→</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section ownership-section" aria-labelledby="ownership-title">
+    <div class="container ownership-grid">
+      <div class="ownership-map" aria-hidden="true"><span class="ownership-core">Tu empresa</span><span>Dominio</span><span>Correo</span><span>Hosting</span><span>Sitio web</span></div>
+      <div><p class="eyebrow"><span></span>Control y continuidad</p><h2 id="ownership-title">Los activos digitales deben pertenecer a tu empresa.</h2><p class="lead">Documentamos titulares, accesos, proveedores, renovaciones y dependencias para que la continuidad no dependa de una sola persona.</p><a class="text-link" href="/contacto">Revisar mis activos digitales <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="section web-projects" id="proyectos" aria-labelledby="web-projects-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow"><span></span>Trabajo desarrollado</p><h2 id="web-projects-title">Webs con propósitos diferentes.</h2></div><p>Diseñamos cada presencia alrededor de su organización, audiencia y siguiente acción.</p></div>
+      {% include "partials/project-grid.njk" %}
+      <a class="text-link section-more-link" href="/proyectos">Explorar el portafolio completo <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="section services-applications" id="aplicaciones" aria-labelledby="services-applications-title">
+    <div class="container application-case-grid">
+      <div class="auth-preview" aria-hidden="true">
+        <div class="auth-preview-message"><span>Psicoeducándonos</span><strong>Una red que elige sostener.</strong><small>Formación · Comunidad · Presencia</small></div>
+        <div class="auth-preview-form"><span>Iniciar sesión</span><i></i><i></i><b>Ingresar</b></div>
+      </div>
+      <div>
+        <p class="eyebrow"><span></span>Aplicaciones web</p>
+        <h2 id="services-applications-title">Software para completar procesos, no solo visitar páginas.</h2>
+        <p class="lead">Diseñamos experiencias con usuarios, datos, permisos y flujos de trabajo. {{ applications.caseStudy.name }} es un caso público de esta capacidad.</p>
+        <div class="button-group">
+          <a class="button" href="/aplicaciones-web">Conocer esta capacidad <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="{{ applications.caseStudy.url }}" target="_blank" rel="external noopener">Ver aplicación publicada <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="web-contact-title">
+    <div class="container contact-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>Servicios web</p><h2 id="web-contact-title">Construyamos una base digital que puedas controlar.</h2></div>
+      <div><p>Cuéntanos qué tienes hoy y qué necesitas lograr. Revisaremos las piezas antes de recomendar un servicio.</p><a class="button button-signal" href="/contacto">Solicitar una evaluación <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+{% endblock %}

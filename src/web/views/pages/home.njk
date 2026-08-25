@@ -1,0 +1,184 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="hero section-dark">
+    <div class="hero-grid container">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-light"><span></span>{{ page.hero.eyebrow }}</p>
+        <h1>{{ page.hero.title }}</h1>
+        <p class="hero-description">{{ page.hero.description }}</p>
+        <div class="button-group">
+          <a class="button button-light" href="{{ page.hero.primaryAction.href }}">{{ page.hero.primaryAction.label }}</a>
+          <a class="text-link text-link-light" href="{{ page.hero.secondaryAction.href }}">
+            {{ page.hero.secondaryAction.label }} <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="system-map" aria-label="Representación de una operación empresarial conectada">
+        <div class="system-orbit system-orbit-one" aria-hidden="true"></div>
+        <div class="system-orbit system-orbit-two" aria-hidden="true"></div>
+        <div class="system-core">
+          <span>Operación</span>
+          <strong>conectada</strong>
+        </div>
+        <div class="system-node system-node-sales"><span></span>Ventas</div>
+        <div class="system-node system-node-data"><span></span>Datos</div>
+        <div class="system-node system-node-support"><span></span>Soporte</div>
+        <div class="system-node system-node-process"><span></span>Procesos</div>
+      </div>
+    </div>
+    <div class="container trust-strip" aria-label="Áreas de trabajo">
+      <span>Sistemas</span><i aria-hidden="true"></i>
+      <span>Integración</span><i aria-hidden="true"></i>
+      <span>Desarrollo</span><i aria-hidden="true"></i>
+      <span>Soporte</span>
+    </div>
+  </section>
+
+  <section class="section mission" aria-labelledby="mission-title">
+    <div class="container split-heading">
+      <p class="eyebrow"><span></span>Nuestra misión</p>
+      <div>
+        <h2 id="mission-title">La tecnología debe adaptarse a la empresa, no al revés.</h2>
+        <p class="lead">Acompañamos decisiones tecnológicas desde el diagnóstico hasta la operación. Combinamos conocimiento empresarial, implementación técnica y soporte continuo para construir soluciones sostenibles.</p>
+        <a class="text-link" href="/nosotros">Conocer RF Consulting <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section specialties" id="especialidades" aria-labelledby="specialties-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span></span>Especialidades</p>
+          <h2 id="specialties-title">Capacidad técnica alrededor de tu operación.</h2>
+        </div>
+        <p>Resolvemos necesidades concretas y conectamos cada decisión con el funcionamiento real de la empresa.</p>
+      </div>
+
+      <div class="specialty-grid">
+        {% for specialty in page.specialties %}
+          <article class="specialty-card">
+            <div class="card-topline"><span>{{ specialty.number }}</span><span aria-hidden="true">↗</span></div>
+            <h3><a href="{{ specialty.link.href }}">{{ specialty.title }}</a></h3>
+            <p>{{ specialty.description }}</p>
+            <ul>
+              {% for capability in specialty.capabilities %}<li>{{ capability }}</li>{% endfor %}
+            </ul>
+            <a class="card-link" href="{{ specialty.link.href }}">{{ specialty.link.label }} <span aria-hidden="true">→</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section systems-feature" aria-labelledby="systems-title">
+    <div class="container systems-grid">
+      <div class="process-visual" aria-hidden="true">
+        <div class="visual-label">Flujo empresarial</div>
+        <div class="flow-row"><span>Ventas</span><i></i><strong>01</strong></div>
+        <div class="flow-row"><span>Inventario</span><i></i><strong>02</strong></div>
+        <div class="flow-row"><span>Contabilidad</span><i></i><strong>03</strong></div>
+        <div class="flow-result"><span>Información útil</span><strong>Una operación</strong></div>
+      </div>
+      <div class="feature-copy">
+        <p class="eyebrow eyebrow-light"><span></span>Sistemas empresariales</p>
+        <h2 id="systems-title">Información clara para decisiones que no pueden esperar.</h2>
+        <p>Integramos procesos administrativos, contables, de ventas e inventario para reducir duplicidad y mejorar el control de la empresa.</p>
+        <ul class="check-list">
+          <li>Diagnóstico de procesos y necesidades</li>
+          <li>Selección e implementación de sistemas</li>
+          <li>Integración, capacitación y soporte</li>
+        </ul>
+        <a class="button button-light" href="/especialidades/sistemas-empresariales">Explorar sistemas empresariales</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section web-services" aria-labelledby="web-title">
+    <div class="container web-grid">
+      <div>
+        <p class="eyebrow"><span></span>Servicios web</p>
+        <h2 id="web-title">Una presencia digital con base empresarial.</h2>
+      </div>
+      <div class="web-copy">
+        <p class="lead">Dominio, correo, hosting y desarrollo web organizados como una infraestructura coherente, segura y preparada para evolucionar.</p>
+        <div class="service-list">
+          <a href="/servicios-web/dominios"><span>01</span><strong>Dominios</strong><i aria-hidden="true">→</i></a>
+          <a href="/servicios-web/correo-corporativo"><span>02</span><strong>Correo corporativo</strong><i aria-hidden="true">→</i></a>
+          <a href="/servicios-web/hosting"><span>03</span><strong>Hosting</strong><i aria-hidden="true">→</i></a>
+          <a href="/servicios-web/diseno-desarrollo-web"><span>04</span><strong>Diseño y desarrollo web</strong><i aria-hidden="true">→</i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" aria-labelledby="process-title">
+    <div class="container">
+      <div class="section-heading section-heading-compact">
+        <div><p class="eyebrow"><span></span>Cómo trabajamos</p><h2 id="process-title">Ingeniería antes que improvisación.</h2></div>
+        <p>Cada etapa produce claridad y evidencia para la siguiente.</p>
+      </div>
+      <ol class="process-grid">
+        {% for step in page.process %}
+          <li><span>{{ step.number }}</span><h3>{{ step.title }}</h3><p>{{ step.description }}</p></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section invoice-feature" aria-labelledby="invoice-title">
+    <div class="container invoice-card">
+      <div class="invoice-mark" aria-hidden="true"><span>FE</span><i></i></div>
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Solución especializada</p>
+        <h2 id="invoice-title">Facturación Electrónica en Panamá.</h2>
+        <p>Una vertical de RF Consulting para acompañar registro, implementación e integración con los sistemas de tu empresa.</p>
+      </div>
+      <a class="button button-light" href="https://facturaelectronica.clic" rel="external">Conocer la solución <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="section knowledge" aria-labelledby="knowledge-title">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span></span>Conocimiento</p><h2 id="knowledge-title">Ideas útiles para decisiones reales.</h2></div>
+        <a class="text-link" href="/blog">Ver todos los artículos <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="article-grid">
+        {% for article in page.articles %}
+          <article class="article-card">
+            <p class="article-meta"><span>{{ article.category }}</span><span>{{ article.readingTime }}</span></p>
+            <h3><a href="{{ article.href }}">{{ article.title }}</a></h3>
+            <p>{{ article.summary }}</p>
+            <a class="card-link" href="{{ article.href }}" aria-label="Leer {{ article.title }}">Leer artículo <span aria-hidden="true">→</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-projects" aria-labelledby="home-projects-title">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span></span>Proyectos desarrollados</p><h2 id="home-projects-title">Soluciones para organizaciones reales.</h2></div>
+        <a class="text-link" href="/servicios-web#proyectos">Ver todos los proyectos <span aria-hidden="true">→</span></a>
+      </div>
+      {% include "partials/project-grid.njk" %}
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="contact-title">
+    <div class="container contact-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Conversemos</p>
+        <h2 id="contact-title">Empecemos por comprender tu operación.</h2>
+      </div>
+      <div>
+        <p>Cuéntanos qué necesitas resolver. Revisaremos el contexto antes de recomendar una herramienta o servicio.</p>
+        <a class="button button-signal" href="/contacto">Solicitar un diagnóstico <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

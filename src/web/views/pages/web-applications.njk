@@ -1,0 +1,70 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="applications-hero section-dark">
+    <div class="container applications-hero-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Aplicaciones web</p>
+        <h1>Software que acompaña un proceso, no solo una visita.</h1>
+      </div>
+      <div>
+        <p>Diseñamos aplicaciones para organizaciones que necesitan usuarios, datos, permisos y flujos que continúan después de cerrar el navegador.</p>
+        <a class="button button-light" href="/contacto">Conversar sobre una aplicación</a>
+      </div>
+    </div>
+    <div class="container app-interface" aria-hidden="true">
+      <div class="app-sidebar"><strong>RF</strong><i></i><i></i><i></i><i></i></div>
+      <div class="app-main"><span>Proceso activo</span><div class="app-metrics"><i></i><i></i><i></i></div><div class="app-flow"><b></b><em></em><b></b><em></em><b></b></div></div>
+    </div>
+  </section>
+
+  <section class="section app-definition" aria-labelledby="app-definition-title">
+    <div class="container split-heading">
+      <p class="eyebrow"><span></span>Sitio o aplicación</p>
+      <div><h2 id="app-definition-title">La diferencia está en lo que la persona puede hacer.</h2><p class="lead">Un sitio presenta información y orienta una decisión. Una aplicación conserva identidad, datos y estado para completar tareas: aprender, administrar, solicitar, aprobar, consultar o colaborar.</p></div>
+    </div>
+  </section>
+
+  <section class="section app-capabilities" aria-labelledby="app-capabilities-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow"><span></span>Capacidades</p><h2 id="app-capabilities-title">Una experiencia completa alrededor del dominio.</h2></div><p>La implementación se ajusta al problema; estas son las responsabilidades que normalmente deben diseñarse en conjunto.</p></div>
+      <div class="app-capability-grid">{% for capability in page.capabilities %}<article><span>0{{ loop.index }}</span><h3>{{ capability.title }}</h3><p>{{ capability.description }}</p></article>{% endfor %}</div>
+    </div>
+  </section>
+
+  <section class="section app-indicators" aria-labelledby="app-indicators-title">
+    <div class="container indicators-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>Cuándo considerarla</p><h2 id="app-indicators-title">Tu organización puede necesitar una aplicación si…</h2></div>
+      <ol>{% for indicator in page.indicators %}<li><span>0{{ loop.index }}</span><p>{{ indicator }}</p></li>{% endfor %}</ol>
+    </div>
+  </section>
+
+  <section class="section application-case" aria-labelledby="application-case-title">
+    <div class="container application-case-grid">
+      <div class="auth-preview" aria-hidden="true">
+        <div class="auth-preview-message"><span>Psicoeducándonos</span><strong>Una red que elige sostener.</strong><small>Formación · Comunidad · Presencia</small></div>
+        <div class="auth-preview-form"><span>Iniciar sesión</span><i></i><i></i><b>Ingresar</b></div>
+      </div>
+      <div>
+        <p class="eyebrow"><span></span>Caso publicado</p>
+        <h2 id="application-case-title">{{ page.caseStudy.name }}</h2>
+        <p class="lead">{{ page.caseStudy.description }}</p>
+        <ul class="case-feature-list">{% for feature in page.caseStudy.visibleFeatures %}<li>{{ feature }}</li>{% endfor %}</ul>
+        <a class="button" href="{{ page.caseStudy.url }}" target="_blank" rel="external noopener">Ver acceso a la plataforma <span aria-hidden="true">↗</span></a>
+        <p class="case-note">{{ page.caseStudy.note }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section app-process" aria-labelledby="app-process-title">
+    <div class="container">
+      <div class="section-heading section-heading-compact"><div><p class="eyebrow"><span></span>Ingeniería first</p><h2 id="app-process-title">El código comienza después de entender.</h2></div><p>Cada etapa deja evidencia para construir, revisar y operar con responsabilidad.</p></div>
+      <ol>{% for step in page.process %}<li><span>0{{ loop.index }}</span><strong>{{ step }}</strong></li>{% endfor %}</ol>
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="app-contact-title">
+    <div class="container contact-grid"><div><p class="eyebrow eyebrow-light"><span></span>Aplicaciones web</p><h2 id="app-contact-title">Convirtamos el proceso en una especificación clara.</h2></div><div><p>Cuéntanos quién utilizará la aplicación, qué necesita lograr y qué ocurre actualmente.</p><a class="button button-signal" href="/contacto">Evaluar una aplicación <span aria-hidden="true">→</span></a></div></div>
+  </section>
+{% endblock %}
+

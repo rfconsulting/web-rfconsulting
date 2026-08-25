@@ -1,0 +1,52 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <section class="specialties-hero section-dark">
+    <div class="container specialties-hero-grid">
+      <div>
+        <p class="eyebrow eyebrow-light"><span></span>Especialidades</p>
+        <h1>Capacidad técnica alrededor de tu operación.</h1>
+      </div>
+      <p>Trabajamos desde el problema empresarial hasta la puesta en marcha. Cada especialidad puede resolver una necesidad concreta y conectarse con las demás cuando la operación lo requiere.</p>
+    </div>
+  </section>
+
+  <section class="section specialties-catalog" aria-labelledby="catalog-title">
+    <div class="container">
+      <div class="catalog-intro">
+        <p class="eyebrow"><span></span>Qué hacemos</p>
+        <h2 id="catalog-title">Cuatro capacidades. Un mismo criterio.</h2>
+      </div>
+      <div class="catalog-list">
+        {% for specialty in page.items %}
+          <article class="catalog-item">
+            <span class="catalog-number">{{ specialty.number }}</span>
+            <div>
+              <p class="catalog-eyebrow">{{ specialty.eyebrow }}</p>
+              <h3><a href="/especialidades/{{ specialty.slug }}">{{ specialty.title }}</a></h3>
+              <p>{{ specialty.summary }}</p>
+            </div>
+            <ul>{% for related in specialty.related %}<li>{{ related }}</li>{% endfor %}</ul>
+            <a class="catalog-action" href="/especialidades/{{ specialty.slug }}" aria-label="Explorar {{ specialty.title }}">Explorar <span aria-hidden="true">→</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section specialties-principle">
+    <div class="container principle-grid">
+      <p class="eyebrow eyebrow-light"><span></span>Nuestro enfoque</p>
+      <blockquote>“Una recomendación tecnológica solo tiene valor cuando comprende el proceso, las personas y las restricciones de la empresa.”</blockquote>
+      <a class="button button-light" href="/nosotros">Conocer cómo trabajamos</a>
+    </div>
+  </section>
+
+  <section class="contact-cta" aria-labelledby="specialties-contact-title">
+    <div class="container contact-grid">
+      <div><p class="eyebrow eyebrow-light"><span></span>Punto de partida</p><h2 id="specialties-contact-title">¿No sabes cuál especialidad necesitas?</h2></div>
+      <div><p>Cuéntanos el problema, no la herramienta. Te ayudaremos a delimitar el siguiente paso.</p><a class="button button-signal" href="/contacto">Solicitar un diagnóstico <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+{% endblock %}
+
