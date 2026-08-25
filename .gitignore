@@ -7,4 +7,4 @@ coverage/
 *.log
 .DS_Store
 Thumbs.db
-docs/*.WordPress.*.xml
+docs
