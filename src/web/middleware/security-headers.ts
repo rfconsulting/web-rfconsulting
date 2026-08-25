@@ -1,6 +1,9 @@
+import { randomBytes } from "node:crypto";
 import type { RequestHandler } from "express";
 
 export const securityHeaders: RequestHandler = (_request, response, next) => {
+  const nonce = randomBytes(16).toString("base64");
+  response.locals.cspNonce = nonce;
   response.set({
     "Content-Security-Policy": [
       "default-src 'self'",
@@ -8,7 +11,7 @@ export const securityHeaders: RequestHandler = (_request, response, next) => {
       "form-action 'self'",
       "frame-ancestors 'none'",
       "img-src 'self' data:",
-      "script-src 'self'",
+      `script-src 'self' 'nonce-${nonce}'`,
       "style-src 'self'",
       "font-src 'self'",
       "connect-src 'self'"
@@ -20,4 +23,3 @@ export const securityHeaders: RequestHandler = (_request, response, next) => {
   });
   next();
 };
-

@@ -116,9 +116,13 @@ técnicas, alias y errores no se publican en el sitemap.
 - [Política de privacidad](docs/10-especificacion-iteracion-privacidad.md)
 - [Indexación técnica](docs/11-especificacion-iteracion-indexacion.md)
 - [Jerarquía de Servicios web](docs/12-especificacion-iteracion-navegacion-servicios-web.md)
+- [Matriz de redirecciones WordPress](docs/13-matriz-redirecciones-wordpress.md)
+- [ADR-0001: monolito modular SSR](docs/adr/0001-monolito-modular-ssr.md)
+- [ADR-0002: dominio canónico](docs/adr/0002-dominio-canonico.md)
 
-`docs/facturaelectrnicaenpanam.WordPress.2026-08-25.xml` se conserva como fuente
-histórica de migración y no se sirve en producción.
+`migration/source/facturaelectrnicaenpanam.WordPress.2026-08-25.xml` se conserva
+localmente como fuente histórica de migración, está ignorado por Git y no se
+sirve en producción.
 
 ## Criterios operativos
 

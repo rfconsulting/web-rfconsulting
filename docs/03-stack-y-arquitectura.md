@@ -1,8 +1,10 @@
-# Stack y arquitectura propuesta
+# Stack y arquitectura
 
 ## 1. Estado de la decisión
 
-**Estado:** propuesta; requiere aprobación del responsable técnico mediante ADR.
+**Estado:** aceptada para la Fase 1 mediante
+[ADR-0001](adr/0001-monolito-modular-ssr.md). Las capacidades futuras que aún
+no están implementadas continúan sujetas a decisiones separadas.
 
 El stack se deriva del problema, el alcance y las restricciones. La selección
 prioriza HTML renderizado para SEO, bajo peso en el navegador, mantenibilidad,
@@ -64,9 +66,8 @@ Aplicación web Node.js + Express
 | Despliegue | Contenedor OCI, reverse proxy y CI/CD | Artefacto reproducible; destino concreto aún por decidir |
 | Observabilidad | Logs JSON, health check, monitoreo de uptime y errores | Diagnóstico mínimo sin registrar secretos o PII innecesaria |
 
-No se fijan números de versión exactos hasta comenzar la implementación; deben
-seleccionarse de fuentes oficiales, bloquearse en el lockfile y registrarse en
-el ADR. “Latest” no será una política de producción.
+Las versiones implementadas están fijadas en `package.json` y
+`package-lock.json`. “Latest” no es una política de producción.
 
 ## 5. Módulos del sistema
 
@@ -213,8 +214,10 @@ en el respaldo.
 
 ## 11. CI/CD y puertas de calidad
 
-Una propuesta no puede integrarse si falla formato, lint, tipos, pruebas,
-build, escaneo de secretos o auditoría de dependencias según el umbral acordado.
+La puerta implementada en la Fase 1 ejecuta instalación reproducible, tipos,
+pruebas, build y auditoría de dependencias de producción. Formato, lint y
+escaneo especializado de secretos deben incorporarse antes de producción; no se
+consideran controles existentes hasta que estén automatizados.
 El despliegue de producción requiere además:
 
 - artefacto inmutable identificado por commit;
@@ -256,20 +259,25 @@ El despliegue de producción requiere además:
 - **Decisión propuesta:** alternativa válida que debe compararse con el CMS
   propio antes de aprobar arquitectura, especialmente según presupuesto y equipo.
 
-## 13. ADR requeridos antes de implementar
+## 13. Registro de decisiones
 
-1. Monolito modular SSR frente a CMS headless.
-2. Motor de plantillas y estrategia de frontend.
-3. Acceso a MySQL y herramienta de migraciones.
-4. Almacenamiento y transformación de medios.
-5. Proveedor de correo y destino de oportunidades.
-6. Hosting, CDN/proxy, backups y estrategia de despliegue.
-7. Analítica, consentimiento y política de retención.
-8. Estrategia coordinada entre RFCPTY y FacturaElectronica.clic.
+Aceptadas:
+
+1. [Monolito modular con Express y Nunjucks SSR](adr/0001-monolito-modular-ssr.md).
+2. [`www.rfcpty.com` como dominio canónico](adr/0002-dominio-canonico.md).
+
+Pendientes antes de implementar la capacidad correspondiente:
+
+1. Acceso a MySQL y herramienta de migraciones.
+2. Almacenamiento y transformación de medios.
+3. Proveedor de correo y destino de oportunidades.
+4. Hosting, CDN/proxy, backups y estrategia de despliegue.
+5. Analítica, consentimiento y política de retención.
+6. Estrategia coordinada entre RFCPTY y FacturaElectronica.click.
 
 ## 14. Criterio de salida de arquitectura
 
-La arquitectura queda lista cuando los responsables comparan las alternativas,
-aprueban los ADR, fijan versiones y presupuestos, completan el modelo de amenazas,
-demuestran un despliegue mínimo con MySQL y confirman que el equipo puede operar,
-respaldar y restaurar la solución.
+La arquitectura de la Fase 1 queda lista al demostrar build reproducible, rutas
+SSR, controles HTTP, pruebas y operación del artefacto. La arquitectura futura
+de CMS y MySQL no queda aprobada hasta completar su ADR, modelo de amenazas,
+migraciones, backup, restauración y capacidad operativa.

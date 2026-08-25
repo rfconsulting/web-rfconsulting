@@ -4,6 +4,16 @@ import express, { type Express } from "express";
 import nunjucks from "nunjucks";
 import { securityHeaders } from "./web/middleware/security-headers.js";
 import { createPublicRouter } from "./web/routes/public-routes.js";
+import { canonicalOrigin, createCanonicalUrl } from "./domain/content/search-index.js";
+
+export function getAssetCacheOptions(nodeEnv: string | undefined) {
+  const production = nodeEnv === "production";
+  return {
+    immutable: false,
+    maxAge: production ? "1h" : 0,
+    fallthrough: false
+  } as const;
+}
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 
@@ -22,14 +32,21 @@ export function createApp(): Express {
   });
 
   app.use(securityHeaders);
+  app.use((request, response, next) => {
+    if (request.hostname.toLowerCase() === "rfcpty.com") {
+      response.redirect(301, `${canonicalOrigin}${request.originalUrl}`);
+      return;
+    }
+
+    response.locals.canonicalOrigin = canonicalOrigin;
+    response.locals.canonicalUrl = createCanonicalUrl(request.path);
+    response.locals.socialImageUrl = createCanonicalUrl("/assets/images/logo-rf-consulting-black.png");
+    next();
+  });
   app.use(express.urlencoded({ extended: false, limit: "20kb" }));
   app.use(
     "/assets",
-    express.static(publicDirectory, {
-      immutable: process.env.NODE_ENV === "production",
-      maxAge: process.env.NODE_ENV === "production" ? "1y" : 0,
-      fallthrough: false
-    })
+    express.static(publicDirectory, getAssetCacheOptions(process.env.NODE_ENV))
   );
   app.use(createPublicRouter());
 

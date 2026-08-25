@@ -5,10 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ page.meta.description }}">
     <meta name="theme-color" content="#071b33">
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <meta property="og:locale" content="es_PA">
+    <meta property="og:type" content="{% if currentSection == 'blog' and currentPath != '/blog' %}article{% else %}website{% endif %}">
+    <meta property="og:site_name" content="RF Consulting">
+    <meta property="og:title" content="{{ page.meta.title }}">
+    <meta property="og:description" content="{{ page.meta.description }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    <meta property="og:image" content="{{ socialImageUrl }}">
+    <meta property="og:image:alt" content="RF Consulting">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.meta.title }}">
+    <meta name="twitter:description" content="{{ page.meta.description }}">
+    <meta name="twitter:image" content="{{ socialImageUrl }}">
     <title>{{ page.meta.title }}</title>
     <link rel="preload" href="/assets/images/logo-rf-consulting-black.png" as="image" fetchpriority="high">
     <link rel="stylesheet" href="/assets/styles/main.css">
     <script src="/assets/scripts/site.js" defer></script>
+    <script type="application/ld+json" nonce="{{ cspNonce }}">{{ {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RF Consulting",
+      "url": canonicalOrigin,
+      "logo": socialImageUrl,
+      "email": "ventas@rfcpty.com",
+      "telephone": "+507 6155-5815"
+    } | dump | safe }}</script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>

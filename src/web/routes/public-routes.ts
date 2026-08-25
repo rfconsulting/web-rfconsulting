@@ -10,9 +10,29 @@ import { webApplicationsContent } from "../../domain/content/web-applications-co
 import { contactContent } from "../../domain/content/contact-content.js";
 import { privacyContent } from "../../domain/content/privacy-content.js";
 import { createRobotsTxt, createSitemapXml } from "../../domain/content/search-index.js";
+import { electronicInvoiceRedirects, goneLegacyPaths, legacyRedirects } from "../../domain/content/redirects-content.js";
 
 export function createPublicRouter(): Router {
   const router = Router();
+
+  for (const redirect of [...legacyRedirects, ...electronicInvoiceRedirects]) {
+    router.get(redirect.from, (_request, response) => response.redirect(301, redirect.to));
+  }
+
+  for (const path of goneLegacyPaths) {
+    router.get(path, (_request, response) => {
+      response.status(410).render("pages/not-found.njk", {
+        page: {
+          meta: {
+            title: "Contenido retirado | RF Consulting",
+            description: "Este contenido fue retirado y no tiene un reemplazo directo."
+          }
+        },
+        currentPath: path,
+        currentYear: new Date().getFullYear()
+      });
+    });
+  }
 
   router.get("/sitemap.xml", (_request, response) => {
     response.type("application/xml").send(createSitemapXml());

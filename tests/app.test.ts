@@ -1,6 +1,6 @@
 import request from "supertest";
 import { describe, expect, it } from "vitest";
-import { createApp } from "../src/app.js";
+import { createApp, getAssetCacheOptions } from "../src/app.js";
 import { prepareContact } from "../src/application/contact/prepare-contact.js";
 
 describe("sitio público", () => {
@@ -17,7 +17,21 @@ describe("sitio público", () => {
     expect(response.text).toContain("facturaelectronica.click");
     expect(response.headers["x-content-type-options"]).toBe("nosniff");
     expect(response.headers["content-security-policy"]).toContain("default-src 'self'");
+    expect(response.headers["content-security-policy"]).toMatch(/script-src 'self' 'nonce-[^']+'/);
     expect(response.headers["x-powered-by"]).toBeUndefined();
+    expect(response.text).toContain('<link rel="canonical" href="https://www.rfcpty.com/">');
+    expect(response.text).toContain('property="og:title"');
+    expect(response.text).toContain('type="application/ld+json"');
+  });
+
+  it("redirige el dominio raíz hacia el host canónico www", async () => {
+    const response = await request(createApp()).get("/blog?origen=legacy").set("Host", "rfcpty.com");
+    expect(response.status).toBe(301);
+    expect(response.headers.location).toBe("https://www.rfcpty.com/blog?origen=legacy");
+  });
+
+  it("no marca assets sin fingerprint como inmutables", () => {
+    expect(getAssetCacheOptions("production")).toEqual({ immutable: false, maxAge: "1h", fallthrough: false });
   });
 
   it("expone una señal de salud mínima", async () => {
@@ -43,6 +57,22 @@ describe("sitio público", () => {
     expect(response.type).toContain("text/plain");
     expect(response.text).toContain("User-agent: *");
     expect(response.text).toContain("Sitemap: https://www.rfcpty.com/sitemap.xml");
+  });
+
+  it.each([
+    ["/software_y_sistemas_empresariales", "/especialidades/sistemas-empresariales"],
+    ["/5-errores-comunes-en-soporte", "/blog/errores-comunes-soporte-tecnico-empresarial"],
+    ["/facturador-gratuito-dgi", "https://facturaelectronica.click/facturador-gratuito-dgi/"]
+  ])("redirige la URL histórica %s", async (from, to) => {
+    const response = await request(createApp()).get(from);
+    expect(response.status).toBe(301);
+    expect(response.headers.location).toBe(to);
+  });
+
+  it("responde 410 para contenido histórico retirado sin reemplazo", async () => {
+    const response = await request(createApp()).get("/productos");
+    expect(response.status).toBe(410);
+    expect(response.text).toContain("Contenido retirado");
   });
 
   it("renderiza Nosotros con contenido curado del WXR", async () => {

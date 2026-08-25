@@ -4,6 +4,10 @@ import { webServiceDetails } from "./web-services-content.js";
 
 export const canonicalOrigin = "https://www.rfcpty.com";
 
+export function createCanonicalUrl(path: string): string {
+  return new URL(path, canonicalOrigin).href;
+}
+
 const updatedAt = "2026-08-25";
 
 export const sitemapEntries = [
