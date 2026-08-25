@@ -49,7 +49,7 @@ Aplicación web Node.js + Express
 
 | Capa | Selección | Justificación y límite |
 | --- | --- | --- |
-| Runtime | Node.js LTS vigente al iniciar implementación | Soporte estable; versión fijada en repositorio y CI |
+| Runtime | Node.js 22–24 | Node.js 22 permite despliegue en cPanel/Passenger; CI y `engines` fijan el rango compatible |
 | Lenguaje | TypeScript estricto | Reduce contratos implícitos en backend, vistas y migración |
 | Framework HTTP | Express, versión estable compatible | Pequeño, conocido y suficiente para un monolito modular |
 | Renderizado | Plantillas SSR con Nunjucks | HTML visible sin JS y composición sencilla; decisión revisable por ADR |

@@ -5,12 +5,13 @@
   "description": "Sitio institucional de RF Consulting",
   "type": "module",
   "engines": {
-    "node": ">=24.0.0 <25"
+    "node": ">=22.0.0 <25"
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
-    "start": "node dist/server.js",
+    "package:cpanel": "npm run build && node scripts/prepare-cpanel.mjs",
+    "start": "node app.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

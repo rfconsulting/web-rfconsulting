@@ -59,7 +59,8 @@ tests/               Pruebas HTTP y de aplicación
 
 ## Desarrollo local
 
-Requisitos: Node.js 24 LTS y npm.
+Requisitos: Node.js 22 LTS o una versión posterior compatible hasta Node.js 24,
+y npm.
 
 ```bash
 npm install
@@ -85,6 +86,7 @@ npm run dev        # servidor con recarga
 npm run typecheck  # validación estática
 npm test           # pruebas automatizadas
 npm run build      # compila y copia vistas/assets a dist
+npm run package:cpanel # prepara release/cpanel para Passenger
 npm start          # ejecuta el artefacto compilado
 npm run check      # typecheck + pruebas + build
 ```
@@ -119,6 +121,7 @@ técnicas, alias y errores no se publican en el sitemap.
 - [Matriz de redirecciones WordPress](docs/13-matriz-redirecciones-wordpress.md)
 - [ADR-0001: monolito modular SSR](docs/adr/0001-monolito-modular-ssr.md)
 - [ADR-0002: dominio canónico](docs/adr/0002-dominio-canonico.md)
+- [Despliegue en cPanel](docs/14-despliegue-cpanel.md)
 
 `migration/source/facturaelectrnicaenpanam.WordPress.2026-08-25.xml` se conserva
 localmente como fuente histórica de migración, está ignorado por Git y no se
