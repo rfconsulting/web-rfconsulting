@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guía para actualizar SQL Server Express with Advanced Services a SQL Server 2022 con evaluación, respaldos, DBCC CHECKDB, Full-Text Search y validación.">
+  <meta name="theme-color" content="#071b33"><link rel="icon" href="/assets/images/favicom.ico" sizes="any">
+  <link rel="canonical" href="https://www.rfcpty.com/blog/actualizar-sql-server-advanced-a-sql-server-2022">
+  <meta property="og:locale" content="es_PA"><meta property="og:type" content="article"><meta property="og:site_name" content="RF Consulting">
+  <meta property="og:title" content="Cómo actualizar SQL Server Express con Advanced Services a SQL Server 2022">
+  <meta property="og:description" content="Un procedimiento técnico para preparar, ejecutar y validar la actualización sin convertirla en un salto de fe.">
+  <meta property="og:url" content="https://www.rfcpty.com/blog/actualizar-sql-server-advanced-a-sql-server-2022"><meta property="og:image" content="https://www.rfcpty.com/assets/images/logo-rf-consulting-black.png"><meta property="og:image:alt" content="RF Consulting">
+  <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Cómo actualizar SQL Server Express con Advanced Services a SQL Server 2022"><meta name="twitter:description" content="Preparación, upgrade, Full-Text Search, validación y plan de reversa."><meta name="twitter:image" content="https://www.rfcpty.com/assets/images/logo-rf-consulting-black.png">
+  <title>Actualizar SQL Server Advanced a SQL Server 2022 | RF Consulting</title>
+  <link rel="preload" href="/assets/images/logo-rf-consulting-black.png" as="image" fetchpriority="high"><link rel="stylesheet" href="/assets/styles/main.css"><script src="/assets/scripts/site.js" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Cómo actualizar SQL Server Express con Advanced Services a SQL Server 2022","description":"Guía técnica para preparar, ejecutar y validar una actualización a SQL Server 2022.","datePublished":"2026-08-27","dateModified":"2026-08-27","author":{"@type":"Organization","name":"RF Consulting"},"publisher":{"@type":"Organization","name":"RF Consulting","logo":{"@type":"ImageObject","url":"https://www.rfcpty.com/assets/images/logo-rf-consulting-black.png"}},"mainEntityOfPage":"https://www.rfcpty.com/blog/actualizar-sql-server-advanced-a-sql-server-2022","inLanguage":"es"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header" data-site-header><div class="container header-inner"><a class="brand" href="/" aria-label="RF Consulting, inicio"><img class="brand-logo brand-logo-header" src="/assets/images/logo-rf-consulting-black.png" width="500" height="250" alt="" fetchpriority="high"></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" data-menu-toggle><span class="menu-toggle-label">Menú</span><span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span></button><nav class="main-navigation" id="main-navigation" aria-label="Navegación principal" data-navigation><ul><li><a href="/nosotros">Nosotros</a></li><li><a href="/especialidades">Especialidades</a></li><li><a href="/servicios-web">Servicios web</a></li><li><a href="/blog" aria-current="page">Conocimiento</a></li></ul><a class="button button-small" href="/contacto">Conversemos</a></nav></div></header>
+  <main id="contenido"><article class="article-page">
+    <header class="article-hero section-dark"><div class="container article-hero-inner"><a class="back-link" href="/blog"><span aria-hidden="true">←</span> Volver a Conocimiento</a><p class="eyebrow eyebrow-light"><span></span>Bases de datos</p><h1>Cómo actualizar SQL Server Express con Advanced Services a SQL Server 2022</h1><p class="article-summary">Una actualización segura empieza antes de abrir el instalador: compatibilidad, integridad, recuperación, ejecución controlada y pruebas reales.</p><div class="article-byline"><span>RF Consulting</span><span>Publicado: 27 de agosto de 2026</span><span>12 min de lectura</span></div></div></header>
+    <div class="container article-layout">
+      <aside class="article-aside" aria-label="Información del artículo"><span>Objetivo técnico</span><p><strong>Destino:</strong> SQL Server 2022 (16.x)<br><strong>Escenario:</strong> Express with Advanced Services<br><strong>Modalidad:</strong> actualización in-place</p><p>Confirma siempre la documentación aplicable a la versión, edición y sistema operativo de tu entorno.</p><a href="/especialidades/sistemas-empresariales">Conocer nuestra especialidad →</a></aside>
+      <div class="article-body">
+        <p class="article-disclaimer"><strong>Antes de comenzar:</strong> una actualización in-place modifica la instancia instalada. Trabaja con una ventana de mantenimiento, respaldos restaurables y un plan de reversa documentado. En sistemas críticos, prueba primero en un entorno separado.</p>
+        <p class="article-intro">Actualizar SQL Server no consiste en presionar <em>Next</em> hasta llegar a <em>Finish</em>. Es un cambio de plataforma: primero se demuestra que el origen está sano y que la ruta es compatible; después se actualiza; finalmente se comprueba que los datos y las aplicaciones continúan funcionando.</p>
+
+        <section><h2>1. Qué significa “Advanced Services”</h2><p>En instalaciones heredadas, “SQL Server Advanced” suele referirse a <strong>SQL Server Express with Advanced Services</strong>. No es una edición independiente llamada Advanced: es una variante de Express que incorpora componentes adicionales, entre ellos Full-Text Search.</p><p>SQL Server Agent no forma parte de Express. Por eso conviene inventariar las funciones instaladas y no asumir que una característica existe solo por el nombre utilizado internamente para el servidor.</p><p class="article-note">Si Setup muestra la página <strong>Full-text Upgrade</strong>, la instancia posee componentes de búsqueda de texto completo que requieren una decisión durante la actualización.</p></section>
+
+        <section><h2>2. Confirma que la ruta de actualización es válida</h2><p>SQL Server 2022 admite determinadas versiones de origen y exige niveles mínimos de Service Pack. La matriz de Microsoft incluye SQL Server 2012 SP4, 2014 SP3, 2016 SP3 y versiones compatibles de 2017 y 2019.</p><p>Para un origen más antiguo, o cuando se quiere una reversa más limpia, conviene evaluar una migración <em>side-by-side</em>: instalar una instancia nueva, restaurar las bases y mover los objetos de servidor necesarios.</p><p class="article-note"><strong>No existe conversión in-place de 32 a 64 bits.</strong> SQL Server 2022 es x64. Una instancia de 32 bits requiere una nueva instalación x64 y una migración.</p></section>
+
+        <section><h2>3. Haz un inventario antes de cambiar nada</h2><p>Registra servidor, instancia, edición, versión, bases, modelos de recuperación y niveles de compatibilidad. Esta fotografía inicial facilita tanto la validación como una eventual reconstrucción.</p><pre><code>SELECT
+    @@SERVERNAME AS ServerName,
+    SERVERPROPERTY('InstanceName') AS InstanceName,
+    SERVERPROPERTY('Edition') AS Edition,
+    SERVERPROPERTY('ProductVersion') AS ProductVersion,
+    SERVERPROPERTY('ProductLevel') AS ProductLevel;
+
+SELECT name, state_desc, recovery_model_desc,
+       compatibility_level
+FROM sys.databases
+ORDER BY name;</code></pre><p>También documenta cuentas de servicio, autenticación, protocolos, puertos, ubicación de archivos, logins, permisos e integraciones ODBC u OLE DB.</p></section>
+
+        <section><h2>4. Identifica el uso de Full-Text Search</h2><p>Advanced Services puede incluir búsqueda de texto completo, pero eso no significa que cada base la utilice. Revisa catálogos e índices dentro de las bases relevantes:</p><pre><code>SELECT name, is_default, is_accent_sensitivity_on
+FROM sys.fulltext_catalogs;
+
+SELECT OBJECT_SCHEMA_NAME(object_id) AS SchemaName,
+       OBJECT_NAME(object_id) AS TableName,
+       is_enabled
+FROM sys.fulltext_indexes;</code></pre><p>Si ambas consultas quedan vacías, esa base no utiliza catálogos ni índices Full-Text. Conserva el resultado como parte del inventario.</p></section>
+
+        <section><h2>5. Comprueba integridad y recuperación</h2><p>Un upgrade no debe comenzar con una base cuyo estado se desconoce. Ejecuta <code>DBCC CHECKDB</code> y resuelve cualquier error de consistencia antes de continuar.</p><pre><code>DBCC CHECKDB (N'MiBaseDeDatos')
+WITH NO_INFOMSGS;</code></pre><p>Luego crea un respaldo completo con checksum y verifícalo:</p><pre><code>BACKUP DATABASE [MiBaseDeDatos]
+TO DISK = N'D:\SQLBackups\MiBase_PreUpgrade.bak'
+WITH INIT, CHECKSUM, STATS = 10;
+
+RESTORE VERIFYONLY
+FROM DISK = N'D:\SQLBackups\MiBase_PreUpgrade.bak'
+WITH CHECKSUM;</code></pre><p class="article-note">La mejor prueba no es <code>VERIFYONLY</code>, sino restaurar el respaldo en otra instancia, abrir la base y ejecutar operaciones representativas de la aplicación.</p></section>
+
+        <section><h2>6. Evalúa compatibilidad antes del upgrade</h2><p>El componente de migración de SQL Server Management Studio permite ejecutar un <em>Upgrade Assessment</em>. Selecciona SQL Server 2022 como destino y analiza las bases que utiliza la aplicación.</p><p>Revisa cambios incompatibles, comportamientos modificados y funciones obsoletas. Este paso cobra especial importancia en sistemas contables, ERP, procedimientos almacenados, triggers e integraciones creadas para motores anteriores.</p></section>
+
+        <section><h2>7. Ejecuta la actualización con una ventana controlada</h2><p>Resuelve primero cualquier reinicio pendiente. Ejecuta <code>setup.exe</code> como administrador y elige la opción de actualización desde una versión anterior.</p><ol><li>Revisa términos de licencia, Global Rules y Product Updates.</li><li>Permite que Setup actualice sus archivos y ejecute Upgrade Rules.</li><li>Confirma cuidadosamente la instancia seleccionada.</li><li>Revisa las características existentes; agrega funciones nuevas en otro cambio posterior.</li><li>Verifica cuentas y configuración de servicios.</li><li>Decide el tratamiento de Full-Text si aparece esa pantalla.</li><li>Revisa el resumen, inicia el upgrade y conserva los logs de Setup.</li></ol><p>Un instalador que termina no demuestra todavía que el cambio sea exitoso. La actualización concluye después de las pruebas.</p></section>
+
+        <section><h2>8. Full-Text: Import, Rebuild o Reset</h2><p>Setup puede ofrecer tres estrategias para los catálogos Full-Text. La elección depende del origen, la ventana disponible y el uso real de las búsquedas:</p><ul><li><strong>Import:</strong> conserva o importa los catálogos cuando el escenario lo permite. Suele reducir el trabajo inmediato.</li><li><strong>Rebuild:</strong> reconstruye con los analizadores de palabras de la versión actual. Puede consumir tiempo, CPU y memoria.</li><li><strong>Reset:</strong> restablece los catálogos y obliga a poblarlos después. Las búsquedas quedan incompletas hasta finalizar esa tarea.</li></ul><p>En el procedimiento documentado se eligió <strong>Import</strong> para reducir el trabajo durante el upgrade. Esa decisión no elimina la validación posterior; si la aplicación usa Full-Text, prueba sus resultados y planifica una reconstrucción o población cuando corresponda.</p><pre><code>ALTER FULLTEXT CATALOG [NombreCatalogo] REBUILD;
+
+ALTER FULLTEXT INDEX ON [dbo].[NombreTabla]
+START FULL POPULATION;</code></pre></section>
+
+        <section><h2>9. Valida el servidor y la aplicación</h2><p>Confirma que el motor quedó en la rama 16.x, que todas las bases están <code>ONLINE</code> y que mantienen el nivel de compatibilidad esperado.</p><pre><code>SELECT SERVERPROPERTY('Edition') AS Edition,
+       SERVERPROPERTY('ProductVersion') AS ProductVersion,
+       SERVERPROPERTY('ProductLevel') AS ProductLevel;
+
+SELECT name, state_desc, user_access_desc,
+       recovery_model_desc, compatibility_level
+FROM sys.databases
+ORDER BY name;</code></pre><p>Ejecuta nuevamente <code>DBCC CHECKDB</code> y prueba autenticación, consultas, inserciones, procesos contables o de facturación, reportes, procedimientos, triggers, conectividad remota, servicios asociados y búsquedas Full-Text.</p><p>Finalmente, crea un nuevo respaldo completo. Ese archivo establece un punto de recuperación generado ya sobre el motor actualizado.</p></section>
+
+        <section><h2>10. No cambies la compatibilidad a ciegas</h2><p>La versión del motor y el nivel de compatibilidad de una base son controles distintos. Una base puede operar inicialmente en SQL Server 2022 conservando su nivel anterior.</p><p>Esta separación permite validar primero la plataforma y evaluar después el comportamiento del optimizador. SQL Server 2022 corresponde al nivel 160, pero el cambio debe realizarse con pruebas y seguimiento de Query Store.</p><pre><code>ALTER DATABASE [MiBaseDeDatos]
+SET COMPATIBILITY_LEVEL = 160;</code></pre><p class="article-note">Actualizar el motor y cambiar simultáneamente todas las bases a nivel 160 elimina una capa útil de aislamiento si aparece una regresión.</p></section>
+
+        <section><h2>11. Diseña la reversa antes de necesitarla</h2><p>El plan no puede ser “desinstalar 2022”. Una reversa real depende de respaldos, medios de instalación y la capacidad de reconstruir el entorno anterior.</p><ul><li>Conserva versión, edición, Service Pack o CU y medio de instalación del origen.</li><li>Documenta instancia, autenticación, servicios, red y rutas de datos.</li><li>Exporta o documenta logins, permisos y objetos de servidor.</li><li>Define el punto máximo de pérdida de datos aceptable.</li><li>Prueba la restauración y el procedimiento de reconexión de la aplicación.</li></ul><p>Para sistemas críticos, la migración <em>side-by-side</em> suele ofrecer una reversa más clara porque la instancia anterior puede mantenerse intacta hasta validar la nueva.</p></section>
+
+        <section><h2>12. Checklist de RF Consulting</h2><p><strong>Antes:</strong> ruta compatible, requisitos, reinicio, inventario, Upgrade Assessment, <code>CHECKDB</code>, respaldos restaurables, configuración documentada y uso de Full-Text confirmado.</p><p><strong>Durante:</strong> instancia correcta, reglas de Setup resueltas, cambios limitados al upgrade, decisión Full-Text consciente y logs conservados.</p><p><strong>Después:</strong> versión 16.x, bases <code>ONLINE</code>, nueva comprobación de integridad, pruebas funcionales, revisión de logs, respaldo completo nuevo y compatibilidad 160 evaluada por separado.</p></section>
+
+        <section class="article-conclusion"><h2>Conclusión</h2><p>Actualizar a SQL Server 2022 es un procedimiento manejable cuando sigue una secuencia clara: inventario, compatibilidad, integridad, respaldo, actualización, validación y solo después optimización.</p><p>La mejor actualización no es la que termina más rápido. Es la que permite demostrar que los datos, las aplicaciones y el plan de recuperación siguen funcionando al finalizar.</p></section>
+
+        <section class="article-sources"><h2>Fuentes oficiales</h2><ul><li><a href="https://learn.microsoft.com/en-us/sql/database-engine/install-windows/supported-version-and-edition-upgrades-2022?view=sql-server-ver17" target="_blank" rel="noopener noreferrer">Versiones y ediciones admitidas para actualizar a SQL Server 2022</a></li><li><a href="https://learn.microsoft.com/es-es/sql/sql-server/install/hardware-and-software-requirements-for-installing-sql-server-2022?view=sql-server-ver17" target="_blank" rel="noopener noreferrer">Requisitos de hardware y software de SQL Server 2022</a></li><li><a href="https://learn.microsoft.com/en-us/sql/database-engine/install-windows/upgrade-database-engine?view=sql-server-ver17" target="_blank" rel="noopener noreferrer">Actualizar el motor de base de datos</a></li><li><a href="https://learn.microsoft.com/en-us/sql/relational-databases/search/upgrade-full-text-search?view=sql-server-ver17" target="_blank" rel="noopener noreferrer">Actualizar Full-Text Search</a></li><li><a href="https://learn.microsoft.com/en-us/sql/database-engine/install-windows/change-the-database-compatibility-mode-and-use-the-query-store?view=sql-server-ver17" target="_blank" rel="noopener noreferrer">Cambiar compatibilidad y utilizar Query Store</a></li></ul></section>
+      </div>
+    </div>
+    <section class="article-cta"><div class="container"><div><span>Servicio relacionado</span><h2>¿Necesitas actualizar una plataforma sin improvisar?</h2></div><a class="button button-light" href="/contacto">Planificar la actualización</a></div></section>
+  </article></main>
+  <footer class="site-footer"><div class="container footer-primary"><div class="footer-intro"><a class="brand brand-inverse" href="/" aria-label="RF Consulting, inicio"><img class="brand-logo brand-logo-footer" src="/assets/images/logo-rf-consulting-white.png" width="467" height="169" alt=""></a><p>Tu punto de apoyo tecnológico para operar, integrar y evolucionar.</p></div><div class="footer-group"><h2>Especialidades</h2><ul><li><a href="/especialidades/sistemas-empresariales">Sistemas empresariales</a></li><li><a href="/especialidades/integraciones-automatizacion">Integraciones</a></li><li><a href="/especialidades/desarrollo-software">Desarrollo</a></li><li><a href="/especialidades/soporte-tecnologico">Soporte</a></li></ul></div><div class="footer-group"><h2>Servicios web</h2><ul><li><a href="/servicios-web#servicios">Servicios</a></li><li><a href="/servicios-web#proyectos">Proyectos desarrollados</a></li><li><a href="/servicios-web#aplicaciones">Aplicaciones web</a></li><li><a href="/contacto">Contacto</a></li><li><a href="/politica-de-privacidad">Privacidad</a></li></ul></div></div><div class="container footer-legal"><p>© 2026 RF Consulting. Panamá.</p><p>Ingeniería con criterio. Tecnología con propósito.</p></div></footer>
+</body>
+</html>

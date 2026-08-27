@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "build:static": "npm run build && node scripts/export-static.mjs",
     "package:cpanel": "npm run build && node scripts/prepare-cpanel.mjs",
     "start": "node app.js",
     "typecheck": "tsc --noEmit",

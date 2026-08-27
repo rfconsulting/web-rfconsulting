@@ -59,6 +59,27 @@ tests/               Pruebas HTTP y de aplicación
 
 ## Desarrollo local
 
+### Versión estática (HTML, CSS y JavaScript)
+
+La réplica sin backend se encuentra en `site/`. Esa carpeta contiene únicamente
+HTML, CSS, JavaScript e imágenes y puede publicarse directamente en cualquier
+hosting estático. Las rutas se exportan como directorios con `index.html` para
+conservar las URLs originales. El formulario se valida en el navegador y prepara
+la consulta para WhatsApp o correo sin almacenar datos.
+
+Para regenerarla después de modificar el contenido fuente:
+
+```bash
+npm ci
+npm run build:static
+```
+
+En producción, configura `site/` como raíz pública y `site/404.html` como página
+de error. Para una revisión local debe usarse un servidor HTTP estático, porque
+el sitio conserva enlaces absolutos como `/servicios-web` y `/assets/...`.
+
+### Aplicación SSR original
+
 Requisitos: Node.js 22 LTS o una versión posterior compatible hasta Node.js 24,
 y npm.
 
